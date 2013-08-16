@@ -1,0 +1,3 @@
+title              Hydra Operating System
+root               (hd0,0)
+kernel /kernel.bin

@@ -1,0 +1,63 @@
+**** Intermidiate Graphics Language ****
+**** Index ****
+1. Virtual Machine Specification
+2. Instruction/Bytecode Specification
+
+**** Virtual Machine Specification ****
+	Has 65536 registers. ( rN )
+	Has 1024*N constant registers ( cN)
+	n<64
+	All registers are 32 bit.
+	
+	*** Constant Registers ***
+	cN registers are patched-in at every execution of IGL
+	and are there to have a method of communication between the calling program and 
+	Graphics code
+	Example:
+	** In the calling program **
+		uint *constantRegisters = IGL::GetConstantRegisters(graphicsProgram);
+		constantRegisters[0]=0x12345678;
+		constantRegisters[1]=0xDEADBEEF;
+		IGL::Execute(graphicsProgram);
+	** In IGL program **
+		mov r0, c0.rgb
+		add r0, c1
+	** After IGL::Execute() **
+		mov r0, 0x345678
+		add r0, 0xDEADBEEF
+	
+
+**** Instruction/Bytecode Specification ****
+
+*** Move instruction ***
+	mov rN, value 
+	Store a value into a register, where N is a number from 0 to 65535
+	Encoding:
+	bit 0-7: 0
+	bit 8-9: 0 - RTR, 1 - CTR, 2 - VTR
+	bit 15-19: Swizzle Map( for bytes 0-3, if bit is 0, that byte is not swizzled)
+	bit 23-31: Swizzle Source Map( two bits per dest byte,determining the source byte)
+	--break--
+	if RTR or CTR:
+		bit 0-15:source
+		bit 16-31:dest
+	else
+		bit 0-15:0
+		bit 16-31:dest
+		--break--
+		bit 0-31: value
+	Example:
+	mov r0, 0xDEADC0DE ;Store 0xDEADC0DE into r0
+	mov r1, r0 ;Store value at r0 into r1
+
+	** Move swizzling **
+	mov rN, value.xyz
+	Select x, y, and z components of a value and store them into a register.
+	
+	Components will be put into the register starting from the least significat bit (LSB)
+	swizzle 0 is special - it will put a zero in that location
+	If total selected component bit length is less that register's, the rest is filled with 0s
+	
+	Example:
+	mov r0, 0x00FFEEDD.bgr ;Select blue, green, and red colors and move them into r0, r0 now contains 0x00DDEEFF
+	

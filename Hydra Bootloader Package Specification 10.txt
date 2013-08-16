@@ -1,0 +1,27 @@
+**** Header ****
+0: "_HBP"
+4: Version (0 - 1.0, 1 - 1.1, etc)
+8: Flags (1 = Splash Screen, 2=Preload Function)
+12: Payload Size
+
+**Relative offsets**
+*If splash*
+0: Splash Width
+2: Splash Height
+4: Background Color
+*If preload function*
+0: Function Start
+4: Function Length
+
+
+**** Payload Start = 0x1000 ****
+**** Spash Image Data 0x1000 + Payload, Aligned at page boundary ****
+
+**** Documentation ****
+1: Splash format definition
+	Must be uncompressed, headerless, 8bpp RGBA image
+
+2: Preload Function
+	Is a real mode function that is executed before the control is passed to the kernel (32/64 bit mode), it will be copied from function start to 0
+	
+	

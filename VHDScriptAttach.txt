@@ -1,0 +1,2 @@
+select vdisk file=c:\os\harddrive.vhd
+attach vdisk

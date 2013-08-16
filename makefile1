@@ -1,0 +1,18 @@
+PROJECT_DIRS := source
+TARGET :=i686-elf-
+PATH :=/cygdrive/c/gcc/bin
+PATH_OUT:=/cygdrive/e/
+SRC_DIR :=source
+
+CPP_FILES := $(shell find . -name *.cpp)
+ASM_FILES :=$(shell find . -name *.asm)
+OBJ_FILES := $(subst source/,obj/,$(patsubst %.asm,%.o,$(ASM_FILES))) $(subst source/,obj/,$(patsubst %.cpp,%.o,$(CPP_FILES)))
+LD_FLAGS := -T /cygdrive/c/OS/linker.ld
+CC_FLAGS :=-Wall -Wextra  -nostdlib -fno-builtin -nostartfiles -nodefaultlibs -fno-exceptions -fno-rtti -fno-stack-protector -O2 -fleading-underscore -c -ggdb -fpermissive -I source/ -L/cygdrive/c/gcc/lib
+kernel.bin: $(OBJ_FILES)
+			$(PATH)/$(TARGET)ld $(LD_FLAGS) -o /cygdrive/c/OS/kernel.bin $(OBJ_FILES)
+			/cygdrive/c/cygwin/bin/cp /cygdrive/c/OS/kernel.bin $(PATH_OUT)
+obj/%.o: source/%.cpp
+			$(PATH)/$(TARGET)g++ -o $@ $<  $(CC_FLAGS)
+obj/%.o: source/%.asm
+			/cygdrive/c/cygwin/bin/nasm -f elf -o $@ $<

@@ -1,0 +1,515 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0xc0100000                . = 0xc0100000
+
+.text           0xc0100000     0x3758 load address 0x00100000
+ *(.text)
+ .text          0xc0100000       0xc6 ./obj/Boot.o
+                0xc010000c                loader
+                0xc01000a6                _GDT_Flush
+                0xc01000c3                _ReadEIP
+ *fill*         0xc01000c6        0xa 00
+ .text          0xc01000d0      0x263 ./obj/Exceptions.o
+                0xc01000d0                _IDT_Flush
+                0xc01000d8                _ISR0
+                0xc01000e2                _ISR1
+                0xc01000ec                _ISR2
+                0xc01000f6                _ISR3
+                0xc0100100                _ISR4
+                0xc010010a                _ISR5
+                0xc0100114                _ISR6
+                0xc010011e                _ISR7
+                0xc0100128                _ISR8
+                0xc0100130                _ISR9
+                0xc010013a                _ISR10
+                0xc0100142                _ISR11
+                0xc010014a                _ISR12
+                0xc0100152                _ISR13
+                0xc010015a                _ISR14
+                0xc0100162                _ISR15
+                0xc010016c                _ISR16
+                0xc0100176                _ISR17
+                0xc0100180                _ISR18
+                0xc010018a                _ISR19
+                0xc0100194                _ISR20
+                0xc010019e                _ISR21
+                0xc01001a8                _ISR22
+                0xc01001b2                _ISR23
+                0xc01001bc                _ISR24
+                0xc01001c6                _ISR25
+                0xc01001d0                _ISR26
+                0xc01001da                _ISR27
+                0xc01001e4                _ISR28
+                0xc01001ee                _ISR29
+                0xc01001f8                _ISR30
+                0xc0100202                _ISR31
+                0xc010020c                _IRQ32
+                0xc0100216                _IRQ33
+                0xc0100220                _IRQ34
+                0xc010022a                _IRQ35
+                0xc0100234                _IRQ36
+                0xc010023e                _IRQ37
+                0xc0100248                _IRQ38
+                0xc0100252                _IRQ39
+                0xc010025c                _IRQ40
+                0xc0100266                _IRQ41
+                0xc0100270                _IRQ42
+                0xc010027a                _IRQ43
+                0xc0100284                _IRQ44
+                0xc010028e                _IRQ45
+                0xc0100298                _IRQ46
+                0xc01002a2                _IRQ47
+ *fill*         0xc0100333        0xd 00
+ .text          0xc0100340      0x262 ./obj/ACPI.o
+                0xc0100340                __ZN8Hardware4ACPI10InitializeEv
+                0xc0100570                __ZN8Hardware4ACPI6VerifyEPNS0_9SDTHeaderE
+ *fill*         0xc01005a2        0xe 00
+ .text          0xc01005b0       0xc6 ./obj/Clock.o
+                0xc01005b0                __ZN8Hardware5Clock12TimerHandlerEP9Registers
+                0xc01005e0                __ZN8Hardware4OutbEth
+                0xc01005f0                __ZN8Hardware5Clock10InitializeEv
+                0xc0100620                __ZN8Hardware5Clock10SleepUntilEj
+                0xc0100640                __ZN8Hardware5Clock5SleepEj
+                0xc0100670                __ZN8Hardware5Clock7GetTimeEv
+ *fill*         0xc0100676        0xa 00
+ .text          0xc0100680      0x638 ./obj/Console.o
+                0xc0100680                __ZN7Console21Initialise_NoGraphicsEv
+                0xc01006e0                __ZN7Console8SetColorEh
+                0xc01006f0                __ZN7Console6ScrollEv
+                0xc0100860                __ZN7Console5WriteEh
+                0xc0100890                __ZN7Console9WriteLineEv
+                0xc01008b0                __ZN7Console5WriteEPKc
+                0xc01008f0                __ZN7Console14WriteSubsystemEPKcS1_j
+                0xc01009c0                __ZN7Console9WriteLineEPKc
+                0xc0100a10                __ZN7Console18WriteLineSubsystemEPKcS1_j
+                0xc0100b00                __ZN7Console11WriteNumberEj
+                0xc0100c80                __ZN7Console5ClearEv
+ *fill*         0xc0100cb8        0x8 00
+ .text          0xc0100cc0      0x1cc ./obj/EventHandler.o
+                0xc0100cc0                __ZN12EventHandlerC2Ev
+                0xc0100cc0                __ZN12EventHandlerC1Ev
+                0xc0100ce0                __ZN12EventHandler6InvokeEPv
+                0xc0100d10                __ZN12EventHandlerpLEPFvvE
+                0xc0100d50                __ZN12EventHandlermIEPFvvE
+                0xc0100da0                __ZN12EventHandlerpLEPFvPvE
+                0xc0100de0                __ZN12EventHandlermIEPFvPvE
+                0xc0100e30                __ZN12EventHandlerclEv
+                0xc0100e60                __ZN12EventHandlerclEPv
+ *fill*         0xc0100e8c        0x4 00
+ .text          0xc0100e90      0x17e ./obj/GDT.o
+                0xc0100e90                __ZN3GDT10InitializeEv
+                0xc0100fa0                __ZN3GDT12DeinitializeEv
+                0xc0100fb0                __ZN3GDT7SetGateEijjcc
+ *fill*         0xc010100e        0x2 00
+ .text          0xc0101010      0x13e ./obj/Graphics.o
+                0xc0101010                __ZN8Graphics21Initialise_NoGraphicsEv
+                0xc0101030                __ZN8Graphics10SetConsoleEP7Console
+                0xc0101050                __ZN8Graphics10GetConsoleEv
+                0xc0101060                __ZN8Graphics14RefreshConsoleEv
+                0xc01010e0                __ZN8Graphics12ForceRefreshEv
+ *fill*         0xc010114e        0x2 00
+ .text          0xc0101150      0xab2 ./obj/IDT.o
+                0xc0101150                __ZN3IDT9PageFaultEP9Registers
+                0xc01011a0                _ExceptionHandler
+                0xc01011d0                _IRQHandler
+                0xc0101220                __ZN3IDT10InitializeEv
+                0xc0101b90                __ZN3IDT12DeinitializeEv
+                0xc0101ba0                __ZN3IDT7SetGateEhjth
+                0xc0101be0                __ZN3IDT15InternalHandlerEP9Registers
+ *fill*         0xc0101c02        0xe 00
+ .text          0xc0101c10      0x163 ./obj/Kernel.o
+                0xc0101c10                _KernelStart
+                0xc0101d60                _KernelEnd
+ *fill*         0xc0101d73        0xd 00
+ .text          0xc0101d80      0x105 ./obj/Memory.o
+                0xc0101d80                __ZN6Memory11Memory_CopyEPvS0_j
+                0xc0101da0                __ZN6Memory10Memory_SetEPjjj
+                0xc0101dc0                __ZN6Memory10Memory_SetEPttj
+                0xc0101de0                __ZN6Memory10Memory_SetEPhhj
+                0xc0101e00                __ZN6Memory12Memory_ClearEPvj
+                0xc0101e20                __ZN6Memory12StaticMallocEj
+                0xc0101e40                __ZN6Memory12StaticMallocEjb
+                0xc0101e70                _memcpy
+ *fill*         0xc0101e85        0xb 00
+ .text          0xc0101e90      0x342 ./obj/Physical.o
+                0xc0101e90                __ZN6Memory8Physical10InitializeEPv
+                0xc0102000                __ZN6Memory8Physical7GetPageEv
+                0xc01020c0                __ZN6Memory8Physical7SetPageEj
+                0xc0102120                __ZN6Memory8Physical8FreePageEj
+                0xc0102170                __ZN6Memory8Physical14TotalFreePagesEv
+ *fill*         0xc01021d2        0xe 00
+ .text          0xc01021e0       0x66 ./obj/PIC.o
+                0xc01021e0                __ZN8Hardware3PIC10InitializeEv
+                0xc01021f0                __ZN8Hardware3PIC12SetFrequencyEi
+ *fill*         0xc0102246        0xa 00
+ .text          0xc0102250      0x117 ./obj/String.o
+                0xc0102250                __ZN6String6LengthEPKc
+                0xc0102270                __ZN6String7CompareEPKcS1_
+                0xc0102320                __ZN6String7CompareEPKcS1_i
+ *fill*         0xc0102367        0x9 00
+ .text          0xc0102370      0x266 ./obj/Symbols.o
+                0xc0102370                __ZN7Symbols9GetSymbolEPKc
+                0xc0102480                __ZN7Symbols9GetSymbolEPKcb
+                0xc01025b0                __ZN7Symbols7GetNameEPNS_6SymbolE
+                0xc01025c0                __ZN7Symbols6MangleEPKc
+                0xc01025d0                __ZN7Symbols8UnmangleEPKc
+ *fill*         0xc01025d6        0xa 00
+ .text          0xc01025e0      0x351 ./obj/Tasking.o
+                0xc01025e0                _GetThread
+                0xc0102690                __ZN7Tasking10InitializeEv
+                0xc0102730                __ZN7Tasking12CreateThreadEPNS_7ProcessEPFvvE
+                0xc01027f0                __ZN7Tasking10GetRunningEv
+                0xc0102800                __ZN7Tasking14ThreadDataCopyEj
+                0xc0102870                __ZN7Tasking13GetNextThreadEP9Registers
+                0xc0102920                __ZN7Tasking6SwitchEv
+ *fill*         0xc0102931        0xf 00
+ .text          0xc0102940      0xe18 ./obj/Virtual.o
+                0xc0102940                __ZN6Memory7Virtual12CreateShadowEPNS0_13PageDirectoryE
+                0xc0102980                __ZN6Memory7Virtual7GetPageEPNS0_13PageDirectoryEj
+                0xc0102cb0                __ZN6Memory7Virtual6SwitchEPNS0_13PageDirectoryE
+                0xc0102d80                __ZN6Memory7Virtual10InitializeEv
+                0xc0102f60                _SwichDirectoryASM
+                0xc0103030                __ZN6Memory7Virtual7GetPageEj
+                0xc01030e0                __ZN6Memory7Virtual12AllocatePageEPNS0_4PageE
+                0xc0103130                __ZN6Memory7Virtual8MapRangeEjjj
+                0xc0103230                __ZN6Memory7Virtual12MapTemporaryEPNS0_4PageE
+                0xc01032e0                __ZN6Memory7Virtual12MapTemporaryEj
+                0xc0103390                __ZN6Memory7Virtual12MapTemporaryEv
+                0xc0103470                __ZN6Memory7Virtual14UnmapTemporaryEv
+                0xc0103520                __ZN6Memory7Virtual8FreePageEPNS0_4PageE
+                0xc01035d0                __ZN6Memory7Virtual10InvalidateEj
+                0xc01035e0                __ZN6Memory7Virtual11GetPhysicalEPNS0_13PageDirectoryEj
+                0xc01036a0                __ZN6Memory7Virtual11GetPhysicalEj
+
+.eh_frame       0xc0103758      0xe48 load address 0x00103758
+ .eh_frame      0xc0103758       0x7c ./obj/ACPI.o
+ .eh_frame      0xc01037d4       0x80 ./obj/Clock.o
+                                 0x98 (size before relaxing)
+ .eh_frame      0xc0103854      0x1fc ./obj/Console.o
+                                0x214 (size before relaxing)
+ .eh_frame      0xc0103a50       0xec ./obj/EventHandler.o
+                                0x104 (size before relaxing)
+ .eh_frame      0xc0103b3c       0x60 ./obj/GDT.o
+                                 0x78 (size before relaxing)
+ .eh_frame      0xc0103b9c       0x94 ./obj/Graphics.o
+                                 0xac (size before relaxing)
+ .eh_frame      0xc0103c30       0xf0 ./obj/IDT.o
+                                0x108 (size before relaxing)
+ .eh_frame      0xc0103d20       0x40 ./obj/Kernel.o
+                                 0x58 (size before relaxing)
+ .eh_frame      0xc0103d60       0xe0 ./obj/Memory.o
+                                 0xf8 (size before relaxing)
+ .eh_frame      0xc0103e40      0x128 ./obj/Physical.o
+                                0x140 (size before relaxing)
+ .eh_frame      0xc0103f68       0x38 ./obj/PIC.o
+                                 0x50 (size before relaxing)
+ .eh_frame      0xc0103fa0       0x8c ./obj/String.o
+                                 0xa4 (size before relaxing)
+ .eh_frame      0xc010402c       0xe4 ./obj/Symbols.o
+                                 0xfc (size before relaxing)
+ .eh_frame      0xc0104110       0xe4 ./obj/Tasking.o
+                                 0xfc (size before relaxing)
+ .eh_frame      0xc01041f4      0x3ac ./obj/Virtual.o
+                                0x3c4 (size before relaxing)
+
+.iplt           0xc01045a0        0x0 load address 0x001045a0
+ .iplt          0x00000000        0x0 ./obj/Boot.o
+
+.text.startup   0xc01045a0       0x2b load address 0x001045a0
+ .text.startup  0xc01045a0       0x2b ./obj/IDT.o
+
+.rel.dyn        0xc01045cc        0x0 load address 0x001045cc
+ .rel.iplt      0x00000000        0x0 ./obj/Boot.o
+ .rel.text      0x00000000        0x0 ./obj/Boot.o
+ .rel.data      0x00000000        0x0 ./obj/Boot.o
+
+.data           0xc0105000     0x3128 load address 0x00105000
+ *(.data)
+ .data          0xc0105000     0x3000 ./obj/Boot.o
+                0xc0106000                _KernelDirectory
+ .data          0xc0108000        0x0 ./obj/ACPI.o
+ .data          0xc0108000        0x0 ./obj/Clock.o
+ .data          0xc0108000        0x0 ./obj/Console.o
+ .data          0xc0108000        0x0 ./obj/EventHandler.o
+ .data          0xc0108000        0x0 ./obj/GDT.o
+ .data          0xc0108000        0x0 ./obj/Graphics.o
+ .data          0xc0108000        0x0 ./obj/IDT.o
+ .data          0xc0108000        0x0 ./obj/Kernel.o
+ .data          0xc0108000        0x4 ./obj/Memory.o
+                0xc0108000                __ZN6Memory11MemoryStartE
+ .data          0xc0108004        0x0 ./obj/Physical.o
+ .data          0xc0108004        0x0 ./obj/PIC.o
+ .data          0xc0108004        0x0 ./obj/String.o
+ .data          0xc0108004       0x10 ./obj/Symbols.o
+                0xc0108004                _SymbolNamesEnd
+                0xc0108008                _SymbolNamesStart
+                0xc010800c                _SymbolsEnd
+                0xc0108010                _SymbolsStart
+ .data          0xc0108014        0x0 ./obj/Tasking.o
+ .data          0xc0108014        0x0 ./obj/Virtual.o
+ *(.rodata*)
+ .rodata.str1.1
+                0xc0108014       0x56 ./obj/ACPI.o
+ .rodata.str1.1
+                0xc010806a       0x18 ./obj/Console.o
+ *fill*         0xc0108082        0x2 00
+ .rodata        0xc0108084        0x8 ./obj/Console.o
+ .rodata.str1.1
+                0xc010808c       0x17 ./obj/IDT.o
+ .rodata.str1.1
+                0xc01080a3       0x59 ./obj/Kernel.o
+                                 0x60 (size before relaxing)
+ .rodata.str1.1
+                0xc01080fc        0xe ./obj/Symbols.o
+                                  0xf (size before relaxing)
+ .rodata.str1.1
+                0xc010810a       0x1e ./obj/Tasking.o
+
+.igot.plt       0xc0108128        0x0 load address 0x00108128
+ .igot.plt      0x00000000        0x0 ./obj/Boot.o
+
+.ctors          0xc0108128        0x4 load address 0x00108128
+ .ctors         0xc0108128        0x4 ./obj/IDT.o
+
+.symtab         0xc0109000        0x0 load address 0x00109000
+                0xc0109000                _KernelSymbolsStart = .
+ *(.symtab*)
+                0xc0109000                _KernelSymbolsEnd = .
+                0xc0109000                _KernelSymbolNamesStart = .
+ *(.strtab*)
+                0xc0109000                _KernelSymbolNamesEnd = .
+ *(.shstrtab*)
+
+.bss            0xc0108140    0x488e8 load address 0x00108140
+                0xc0108140                _sbss = .
+ *(COMMON)
+ *(.bss)
+ .bss           0xc0108140     0x8000 ./obj/Boot.o
+ .bss           0xc0110140        0xc ./obj/ACPI.o
+                0xc0110140                __ZN8Hardware4ACPI10NewVersionE
+                0xc0110144                __ZN8Hardware4ACPI4RootE
+                0xc0110148                __ZN8Hardware4ACPI4RDSPE
+ .bss           0xc011014c        0x4 ./obj/Clock.o
+                0xc011014c                __ZN8Hardware5Clock5TicksE
+ .bss           0xc0110150        0x0 ./obj/Console.o
+ .bss           0xc0110150        0x0 ./obj/EventHandler.o
+ *fill*         0xc0110150       0x10 00
+ .bss           0xc0110160       0x48 ./obj/GDT.o
+                0xc0110160                __ZN3GDT7PointerE
+                0xc0110180                __ZN3GDT7EntiresE
+ .bss           0xc01101a8        0xc ./obj/Graphics.o
+                0xc01101a8                __ZN8Graphics11MainConsoleE
+                0xc01101ac                __ZN8Graphics3BBPE
+                0xc01101b0                __ZN8Graphics4VRAME
+ *fill*         0xc01101b4        0xc 00
+ .bss           0xc01101c0    0x40820 ./obj/IDT.o
+                0xc01101c0                __ZN3IDT7PointerE
+                0xc01101e0                __ZN3IDT13EventHandlersE
+                0xc01501e0                __ZN3IDT7EntriesE
+ .bss           0xc01509e0       0x18 ./obj/Kernel.o
+                0xc01509e0                _Console
+ .bss           0xc01509f8        0x0 ./obj/Memory.o
+ .bss           0xc01509f8        0x8 ./obj/Physical.o
+                0xc01509f8                __ZN6Memory8Physical6BitmapE
+                0xc01509fc                __ZN6Memory8Physical10SuperblockE
+ .bss           0xc0150a00        0x0 ./obj/PIC.o
+ .bss           0xc0150a00        0x0 ./obj/String.o
+ .bss           0xc0150a00       0x10 ./obj/Symbols.o
+ .bss           0xc0150a10       0x10 ./obj/Tasking.o
+                0xc0150a10                __ZN7Tasking13KernelProcessE
+                0xc0150a14                __ZN7Tasking5QueueE
+                0xc0150a18                _SwitchRequested
+                0xc0150a1c                _NextThread
+ .bss           0xc0150a20        0x8 ./obj/Virtual.o
+                0xc0150a20                __ZN6Memory7Virtual7CurrentE
+                0xc0150a24                __ZN6Memory7Virtual6KernelE
+                0xc0150a28                _ebss = .
+                0xc0150a28                _KernelMemoryEnd = .
+LOAD ./obj/Boot.o
+LOAD ./obj/Exceptions.o
+LOAD ./obj/ACPI.o
+LOAD ./obj/Clock.o
+LOAD ./obj/Console.o
+LOAD ./obj/EventHandler.o
+LOAD ./obj/GDT.o
+LOAD ./obj/Graphics.o
+LOAD ./obj/IDT.o
+LOAD ./obj/Kernel.o
+LOAD ./obj/Memory.o
+LOAD ./obj/Physical.o
+LOAD ./obj/PIC.o
+LOAD ./obj/String.o
+LOAD ./obj/Symbols.o
+LOAD ./obj/Tasking.o
+LOAD ./obj/Virtual.o
+OUTPUT(/cygdrive/c/OS/kernel.bin elf32-i386)
+
+.debug_info     0x00000000     0x75a8
+ .debug_info    0x00000000      0x8f7 ./obj/ACPI.o
+ .debug_info    0x000008f7      0x73e ./obj/Clock.o
+ .debug_info    0x00001035      0xc59 ./obj/Console.o
+ .debug_info    0x00001c8e      0x4ac ./obj/EventHandler.o
+ .debug_info    0x0000213a      0x32a ./obj/GDT.o
+ .debug_info    0x00002464      0x5c4 ./obj/Graphics.o
+ .debug_info    0x00002a28     0x1282 ./obj/IDT.o
+ .debug_info    0x00003caa      0x695 ./obj/Kernel.o
+ .debug_info    0x0000433f      0x3db ./obj/Memory.o
+ .debug_info    0x0000471a      0x581 ./obj/Physical.o
+ .debug_info    0x00004c9b       0xb0 ./obj/PIC.o
+ .debug_info    0x00004d4b      0x22e ./obj/String.o
+ .debug_info    0x00004f79      0x9d8 ./obj/Symbols.o
+ .debug_info    0x00005951      0x6a4 ./obj/Tasking.o
+ .debug_info    0x00005ff5     0x15b3 ./obj/Virtual.o
+
+.debug_abbrev   0x00000000     0x1e42
+ .debug_abbrev  0x00000000      0x258 ./obj/ACPI.o
+ .debug_abbrev  0x00000258      0x2c1 ./obj/Clock.o
+ .debug_abbrev  0x00000519      0x26f ./obj/Console.o
+ .debug_abbrev  0x00000788      0x1f3 ./obj/EventHandler.o
+ .debug_abbrev  0x0000097b      0x13e ./obj/GDT.o
+ .debug_abbrev  0x00000ab9      0x1cc ./obj/Graphics.o
+ .debug_abbrev  0x00000c85      0x306 ./obj/IDT.o
+ .debug_abbrev  0x00000f8b      0x200 ./obj/Kernel.o
+ .debug_abbrev  0x0000118b      0x138 ./obj/Memory.o
+ .debug_abbrev  0x000012c3      0x1e4 ./obj/Physical.o
+ .debug_abbrev  0x000014a7       0xae ./obj/PIC.o
+ .debug_abbrev  0x00001555      0x165 ./obj/String.o
+ .debug_abbrev  0x000016ba      0x284 ./obj/Symbols.o
+ .debug_abbrev  0x0000193e      0x230 ./obj/Tasking.o
+ .debug_abbrev  0x00001b6e      0x2d4 ./obj/Virtual.o
+
+.debug_loc      0x00000000     0x3b18
+ .debug_loc     0x00000000      0x381 ./obj/ACPI.o
+ .debug_loc     0x00000381       0x58 ./obj/Clock.o
+ .debug_loc     0x000003d9      0x877 ./obj/Console.o
+ .debug_loc     0x00000c50      0x29b ./obj/EventHandler.o
+ .debug_loc     0x00000eeb       0x88 ./obj/GDT.o
+ .debug_loc     0x00000f73      0x202 ./obj/Graphics.o
+ .debug_loc     0x00001175      0x203 ./obj/IDT.o
+ .debug_loc     0x00001378      0x102 ./obj/Kernel.o
+ .debug_loc     0x0000147a      0x138 ./obj/Memory.o
+ .debug_loc     0x000015b2      0x5bb ./obj/Physical.o
+ .debug_loc     0x00001b6d       0x62 ./obj/PIC.o
+ .debug_loc     0x00001bcf      0x24b ./obj/String.o
+ .debug_loc     0x00001e1a      0x4d2 ./obj/Symbols.o
+ .debug_loc     0x000022ec      0x25a ./obj/Tasking.o
+ .debug_loc     0x00002546     0x15d2 ./obj/Virtual.o
+
+.debug_aranges  0x00000000      0x1e8
+ .debug_aranges
+                0x00000000       0x20 ./obj/ACPI.o
+ .debug_aranges
+                0x00000020       0x20 ./obj/Clock.o
+ .debug_aranges
+                0x00000040       0x20 ./obj/Console.o
+ .debug_aranges
+                0x00000060       0x20 ./obj/EventHandler.o
+ .debug_aranges
+                0x00000080       0x20 ./obj/GDT.o
+ .debug_aranges
+                0x000000a0       0x20 ./obj/Graphics.o
+ .debug_aranges
+                0x000000c0       0x28 ./obj/IDT.o
+ .debug_aranges
+                0x000000e8       0x20 ./obj/Kernel.o
+ .debug_aranges
+                0x00000108       0x20 ./obj/Memory.o
+ .debug_aranges
+                0x00000128       0x20 ./obj/Physical.o
+ .debug_aranges
+                0x00000148       0x20 ./obj/PIC.o
+ .debug_aranges
+                0x00000168       0x20 ./obj/String.o
+ .debug_aranges
+                0x00000188       0x20 ./obj/Symbols.o
+ .debug_aranges
+                0x000001a8       0x20 ./obj/Tasking.o
+ .debug_aranges
+                0x000001c8       0x20 ./obj/Virtual.o
+
+.debug_ranges   0x00000000     0x1a18
+ .debug_ranges  0x00000000      0x148 ./obj/ACPI.o
+ .debug_ranges  0x00000148      0x168 ./obj/Console.o
+ .debug_ranges  0x000002b0       0x60 ./obj/EventHandler.o
+ .debug_ranges  0x00000310       0x30 ./obj/Graphics.o
+ .debug_ranges  0x00000340      0x928 ./obj/IDT.o
+ .debug_ranges  0x00000c68       0x40 ./obj/Kernel.o
+ .debug_ranges  0x00000ca8      0x200 ./obj/Physical.o
+ .debug_ranges  0x00000ea8       0x18 ./obj/PIC.o
+ .debug_ranges  0x00000ec0       0x98 ./obj/String.o
+ .debug_ranges  0x00000f58      0x128 ./obj/Symbols.o
+ .debug_ranges  0x00001080       0x38 ./obj/Tasking.o
+ .debug_ranges  0x000010b8      0x960 ./obj/Virtual.o
+
+.debug_line     0x00000000     0x1426
+ .debug_line    0x00000000      0x12c ./obj/ACPI.o
+ .debug_line    0x0000012c       0xdf ./obj/Clock.o
+ .debug_line    0x0000020b      0x220 ./obj/Console.o
+ .debug_line    0x0000042b       0xf1 ./obj/EventHandler.o
+ .debug_line    0x0000051c       0x98 ./obj/GDT.o
+ .debug_line    0x000005b4       0xcb ./obj/Graphics.o
+ .debug_line    0x0000067f      0x323 ./obj/IDT.o
+ .debug_line    0x000009a2      0x147 ./obj/Kernel.o
+ .debug_line    0x00000ae9       0x94 ./obj/Memory.o
+ .debug_line    0x00000b7d      0x141 ./obj/Physical.o
+ .debug_line    0x00000cbe       0x61 ./obj/PIC.o
+ .debug_line    0x00000d1f       0x8d ./obj/String.o
+ .debug_line    0x00000dac      0x144 ./obj/Symbols.o
+ .debug_line    0x00000ef0      0x10c ./obj/Tasking.o
+ .debug_line    0x00000ffc      0x42a ./obj/Virtual.o
+
+.debug_str      0x00000000     0x14fe
+ .debug_str     0x00000000      0x4ab ./obj/ACPI.o
+                                0x547 (size before relaxing)
+ .debug_str     0x000004ab      0x326 ./obj/Clock.o
+                                0x403 (size before relaxing)
+ .debug_str     0x000007d1       0x6f ./obj/Console.o
+                                0x3b5 (size before relaxing)
+ .debug_str     0x00000840       0x32 ./obj/EventHandler.o
+                                0x18f (size before relaxing)
+ .debug_str     0x00000872       0xf7 ./obj/GDT.o
+                                0x178 (size before relaxing)
+ .debug_str     0x00000969      0x154 ./obj/Graphics.o
+                                0x491 (size before relaxing)
+ .debug_str     0x00000abd      0x142 ./obj/IDT.o
+                                0x637 (size before relaxing)
+ .debug_str     0x00000bff       0x85 ./obj/Kernel.o
+                                0x425 (size before relaxing)
+ .debug_str     0x00000c84      0x123 ./obj/Memory.o
+                                0x1bd (size before relaxing)
+ .debug_str     0x00000da7      0x25f ./obj/Physical.o
+                                0x2e9 (size before relaxing)
+ .debug_str     0x00001006       0x64 ./obj/PIC.o
+                                 0x9a (size before relaxing)
+ .debug_str     0x0000106a       0x76 ./obj/String.o
+                                 0xb2 (size before relaxing)
+ .debug_str     0x000010e0      0x104 ./obj/Symbols.o
+                                0x4ae (size before relaxing)
+ .debug_str     0x000011e4      0x167 ./obj/Tasking.o
+                                0x375 (size before relaxing)
+ .debug_str     0x0000134b      0x1b3 ./obj/Virtual.o
+                                0x3e8 (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 ./obj/ACPI.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 ./obj/Clock.o
+ .comment       0x00000000       0x12 ./obj/Console.o
+ .comment       0x00000000       0x12 ./obj/EventHandler.o
+ .comment       0x00000000       0x12 ./obj/GDT.o
+ .comment       0x00000000       0x12 ./obj/Graphics.o
+ .comment       0x00000000       0x12 ./obj/IDT.o
+ .comment       0x00000000       0x12 ./obj/Kernel.o
+ .comment       0x00000000       0x12 ./obj/Memory.o
+ .comment       0x00000000       0x12 ./obj/Physical.o
+ .comment       0x00000000       0x12 ./obj/PIC.o
+ .comment       0x00000000       0x12 ./obj/String.o
+ .comment       0x00000000       0x12 ./obj/Symbols.o
+ .comment       0x00000000       0x12 ./obj/Tasking.o
+ .comment       0x00000000       0x12 ./obj/Virtual.o
