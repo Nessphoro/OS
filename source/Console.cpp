@@ -120,14 +120,12 @@ void Console::WriteSubsystem(const char* message,const char* subsystem,unsigned 
         ImportanceColor=RED;
 
     }
-    Console::SetColor(WHITE);
-    Console::Write('[');
     Console::SetColor(ImportanceColor);
+    Console::Write('[');
     Console::Write(subsystem);
-    Console::SetColor(WHITE);
     Console::Write(']');
+	Console::SetColor(OldColor);
     Console::Write(message);
-    Console::SetColor(OldColor);
 }
 void Console::WriteLineSubsystem(const char* message,const char* subsystem,unsigned int importance)
 {
@@ -147,14 +145,13 @@ void Console::WriteLineSubsystem(const char* message,const char* subsystem,unsig
         break;
 
     }
-    Console::SetColor(WHITE);
-    Console::Write('[');
     Console::SetColor(ImportanceColor);
+    Console::Write('[');
     Console::Write(subsystem);
-    Console::SetColor(WHITE);
-    Console::Write(']');
+    Console::Write('] ');
+	Console::SetColor(OldColor);
     Console::WriteLine(message);
-    Console::SetColor(OldColor);
+    
 }
 void Console::SetColor(const unsigned char c)
 {
@@ -168,7 +165,7 @@ void Console::Scroll()
     {
         Dirty=true;
         Temp = Y - Height +1;
-        Memory::Memory_Copy((void*)Buffer,((Buffer)+Temp*Width),(Height-Temp)*Width*2);
+        Memory::Memory_Copy((void*)Buffer,(void*)((Buffer)+Temp*Width),(Height-Temp)*Width*2);
         Memory::Memory_Clear((void*)((Buffer)+(Height-1)*Width),Width*2);
         Y = Height-1;
     }
