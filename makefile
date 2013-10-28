@@ -11,7 +11,7 @@ CC := $(TARGET)gcc
 CPPC := $(TARGET)g++
 ASM_FLAGS := -f elf
 ASM_CC := /cygdrive/c/cygwin/bin/nasm
-OBJ_FILES := obj/Clock.o obj/Console.o obj/EventHandler.o obj/GDT.o obj/Graphics.o obj/IDT.o obj/Kernel.o obj/Memory.o obj/Physical.o obj/PIC.o obj/String.o obj/Symbols.o obj/Tasking.o obj/Hardware/RTC.o obj/Memory/Logical.o obj/Memory/Virtual.o obj/Boot.o obj/Exceptions.o obj/Filter.o
+OBJ_FILES := obj/Clock.o obj/Console.o obj/EventHandler.o obj/GDT.o obj/Graphics.o obj/IDT.o obj/Kernel.o obj/Memory.o obj/Physical.o obj/PIC.o obj/String.o obj/Symbols.o obj/Tasking.o obj/Hardware/RTC.o obj/Memory/Logical.o obj/Memory/Virtual.o obj/Boot.o obj/Exceptions.o
 DEPS := $(OBJ_FILES:.o=.d)
 -include $(DEPS)
 
@@ -57,6 +57,4 @@ obj/Memory/Virtual.o: source/Memory/Virtual.cpp
 obj/Boot.o: source/Boot.asm
 	$(ASM_CC) -o $@ $< $(ASM_FLAGS)
 obj/Exceptions.o: source/Exceptions.asm
-	$(ASM_CC) -o $@ $< $(ASM_FLAGS)
-obj/Filter.o: source/Filter.asm
 	$(ASM_CC) -o $@ $< $(ASM_FLAGS)
