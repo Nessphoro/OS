@@ -223,11 +223,10 @@ pip-log.txt
 *.zip
 *.bin
 *.rar
-.dll
-.efi
-.img
+*.dll
+*.efi
+*.img
+*.o
 fat_stage1_5
-Harddrive.vhd
-Harddrive.zip
 stage1
 stage2
