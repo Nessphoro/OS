@@ -1,5 +1,7 @@
 #include "Hardware/Clock.h"
 #include "Hardware/PIC.h"
+#include "Hardware/RTC.h"
+#include "Boot/IDT.h"
 #include "Graphics/Graphics.h"
 #include "Tasking/Tasking.h"
 #include "Boot/IDT.h"
@@ -10,45 +12,69 @@ namespace Hardware
     {
         __asm volatile( "outb %0, %1" : : "a"(data), "Nd"(port) );
     }
+	unsigned char Inb(unsigned short port)
+	{
+		unsigned char ret;
+		__asm volatile("inb %1, %0" : "=a"(ret) : "Nd"(port));
+		return ret;
+	}
     namespace Clock
     {
-        volatile unsigned int Ticks=0;
+		volatile int driftFix=0;
+        volatile unsigned long long Ticks=0;
 
         bool Initialize()
         {
             IDT::EventHandlers[32]+=(void(*)(void*))TimerHandler;
-            PIC::SetFrequency(1000);
+			IDT::EventHandlers[40] += (void(*)(void*) )RTCHandler;
+            PIC::SetFrequency(18);
             return true;
         }
 
-        void SleepUntil(unsigned int time)
+        void SleepUntil(unsigned long long time)
         {
             while (Ticks<time)
             {
                 __asm volatile("hlt");
             }
         }
-        void Sleep(unsigned int time)
+        void Sleep(unsigned long long time)
         {
-            unsigned int Until=GetTime()+time;
+            unsigned long long Until=GetTime()+time;
             SleepUntil(Until);
         }
 
-        unsigned int GetTime()
+        unsigned long long GetTime()
         {
             return Ticks;
         }
 
         void TimerHandler(Registers* registers)
         {
-            Ticks++;
-			if(Tasking::TaskingEnabled)
-            {
-			
-				if(--Tasking::GetRunning()->TimeLeft==0)
-                    Tasking::Switch();
-            }
-            Graphics::RefreshConsole();
+
         }
+
+		void RTCHandler(Registers* registers)
+		{
+			Outb(0x70, 0x0C);
+			Inb(0x71);
+
+			Ticks+=9765;
+			driftFix++;
+			if (driftFix == 8)
+			{
+				Ticks += 5;
+				driftFix = 0;
+			}
+				
+
+			if (Tasking::TaskingEnabled)
+			{
+
+				if (--Tasking::GetRunning()->TimeLeft == 0)
+					Tasking::Switch();
+			}
+			Graphics::RefreshConsole();
+		}
     }
 }

@@ -9,6 +9,7 @@ namespace Memory
 		Block** BlockMap=(Block**)HeapBase;
 		Block* ExtraSmall;
 		Block* SmallBlocks[32];
+		Block* SubPageBlocks[2];
 		void Initialize()
 		{
 			for(int i=0;i<0xFFFF;i++)
@@ -44,10 +45,25 @@ namespace Memory
 				tempBlock->Empty=true;
 				tempBlock->Length=0;
 				tempBlock->Head=true;
-				tempBlock->Large=true;
+				tempBlock->Large=false;
 				for(int b=0;b<512;b++)
 				{
 					BlockMap[i*512+b]=tempBlock;
+				}
+			}
+			for (int i = 34; i < 36; i++)
+			{
+				Block* tempBlock = SubPageBlocks[i - 34] = (Block*) (HeapBase + i * 1024 * 1024 * 2);
+				Graphics::ForceRefresh();
+				tempBlock->Size = (i - 33) * 1024;
+				tempBlock->Free = true;
+				tempBlock->Empty = true;
+				tempBlock->Length = 0;
+				tempBlock->Head = true;
+				tempBlock->Large = false;
+				for (int b = 0; b < 512; b++)
+				{
+					BlockMap[i * 512 + b] = tempBlock;
 				}
 			}
 		}
@@ -89,11 +105,12 @@ namespace Memory
 				return 0;
 
 
-			if(size>=4096)
+			if (size > 512)
 			{
-
+				int subPageSize = size / 1024 + 1;
+				
 			}
-			else if(size>4 && size<=512)
+			else if(size>4)
 			{
 				if(size%16==0)
 					return FromBlock(SmallBlocks[size/16 - 1]);

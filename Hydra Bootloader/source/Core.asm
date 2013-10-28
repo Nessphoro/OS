@@ -12,7 +12,6 @@ call Print
 
 mov AX,[payLoadLocation]
 sub AL,0x30
-
 cmp AH,0x2F; Is the location in a valid format
 je LocationChecked 
 
@@ -24,9 +23,9 @@ jmp hang
 LocationChecked:
 cmp AL,4
 jge InvalidLocation
-
 xor AH,AH
 mov BX,AX
+mov ebp,RBP,B
 shl BX,4
 add BX,0x7DBE
 mov AX,[BX+4] ;load partition bx type

@@ -5,13 +5,13 @@ TARGET := i586-elf-
 PATH := /cygdrive/c/gcc/bin:/cygdrive/c/cygwin/bin
 PATH_OUT := /cygdrive/g/
 LD_FLAGS := -T /cygdrive/c/os/linker.ld
-CC_FLAGS := -ggdb -Wall -MMD -Wextra  -nostdlib -fno-builtin -nostartfiles -nodefaultlibs -fno-stack-protector  -fleading-underscore -c -fpermissive -I source/
-CPPC_FLAGS := -ggdb -Wall -MMD -Wextra  -nostdlib -fno-builtin -nostartfiles -nodefaultlibs -fno-exceptions -fno-rtti -fno-stack-protector -fleading-underscore -c -fpermissive -I source/
+CC_FLAGS := -Wall -MMD -Wextra  -nostdlib -fno-builtin -nostartfiles -nodefaultlibs -fno-stack-protector -O2 -fleading-underscore -c -fpermissive -I source/
+CPPC_FLAGS := -Wall -MMD -Wextra  -nostdlib -fno-builtin -nostartfiles -nodefaultlibs -fno-exceptions -fno-rtti -fno-stack-protector -O2 -fleading-underscore -c -fpermissive -I source/
 CC := $(TARGET)gcc
 CPPC := $(TARGET)g++
 ASM_FLAGS := -f elf
 ASM_CC := /cygdrive/c/cygwin/bin/nasm
-OBJ_FILES := obj/Clock.o obj/Console.o obj/EventHandler.o obj/GDT.o obj/Graphics.o obj/IDT.o obj/Kernel.o obj/Memory.o obj/Physical.o obj/PIC.o obj/String.o obj/Symbols.o obj/Tasking.o obj/Memory/Logical.o obj/Memory/Virtual.o obj/Boot.o obj/Exceptions.o
+OBJ_FILES := obj/Clock.o obj/Console.o obj/EventHandler.o obj/GDT.o obj/Graphics.o obj/IDT.o obj/Kernel.o obj/Memory.o obj/Physical.o obj/PIC.o obj/String.o obj/Symbols.o obj/Tasking.o obj/Hardware/RTC.o obj/Memory/Logical.o obj/Memory/Virtual.o obj/Boot.o obj/Exceptions.o obj/Filter.o
 DEPS := $(OBJ_FILES:.o=.d)
 -include $(DEPS)
 
@@ -48,6 +48,8 @@ obj/Symbols.o: source/Symbols.cpp
 	$(CPPC) -o $@ $< $(CPPC_FLAGS)
 obj/Tasking.o: source/Tasking.cpp
 	$(CPPC) -o $@ $< $(CPPC_FLAGS)
+obj/Hardware/RTC.o: source/Hardware/RTC.cpp
+	$(CPPC) -o $@ $< $(CPPC_FLAGS)
 obj/Memory/Logical.o: source/Memory/Logical.cpp
 	$(CPPC) -o $@ $< $(CPPC_FLAGS)
 obj/Memory/Virtual.o: source/Memory/Virtual.cpp
@@ -55,4 +57,6 @@ obj/Memory/Virtual.o: source/Memory/Virtual.cpp
 obj/Boot.o: source/Boot.asm
 	$(ASM_CC) -o $@ $< $(ASM_FLAGS)
 obj/Exceptions.o: source/Exceptions.asm
+	$(ASM_CC) -o $@ $< $(ASM_FLAGS)
+obj/Filter.o: source/Filter.asm
 	$(ASM_CC) -o $@ $< $(ASM_FLAGS)

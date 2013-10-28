@@ -62,9 +62,7 @@ extern "C" void ExceptionHandler(Registers* registers)
 }
 extern "C" void IRQHandler(Registers* registers)
 {
-	//Does not forward irq
-    //IDT::InternalHandler(registers);
-    Hardware::Clock::TimerHandler(registers);
+    IDT::InternalHandler(registers);
     if (registers->INT >= 40)
     {
         Hardware::Outb(0xA0, 0x20);

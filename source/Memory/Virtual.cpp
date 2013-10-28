@@ -176,7 +176,7 @@ namespace Memory
 			unsigned int CR2;
 			__asm volatile("mov %%cr2, %0": "=r"(CR2));
 			
-			*Graphics::GetConsole()<<RED<<"[INFO] Page fault at address:"<<CR2<<" Supevisor:"<<Supervisor<<" Present:"<<Present<<endl;
+			*Graphics::GetConsole()<<RED<<"[INFO] Page fault at address:"<<CR2<<" Supevisor:"<<Supervisor<<" Present:"<<Present<<" EIP:"<<registers->EIP<<endl;
 			if(!Present && Supervisor && CR2 >= 0xF0000000)
 			{
 				*Graphics::GetConsole()<<GREEN<<"[INFO]"<<WHITE<< " Heap demand paging recognized..."<<endl<<WHITE;

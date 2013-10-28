@@ -109,8 +109,8 @@ loader:
    mov cr0,ecx
    ;We're paging now, jump 3GB forward
    lea ecx,[StartInHigherHalf]
-   jmp ecx
-   
+   jmp ecx 
+
 StartInHigherHalf:
    mov DWORD [(Directory - KERNEL_VIRTUAL_BASE)],0
    mov ecx, (Directory - KERNEL_VIRTUAL_BASE)
@@ -132,7 +132,6 @@ hang:
    jmp   hang 
 
 [GLOBAL _GDT_Flush]    ; Allows the C code to call gdt_flush().
-
 _GDT_Flush:
     mov eax, [esp+4]  ; Get the pointer to the GDT, passed as a parameter.
     lgdt [eax]        ; Load the new GDT pointer
